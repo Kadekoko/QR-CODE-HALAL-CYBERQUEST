@@ -1,0 +1,71 @@
+
+<!doctype html><html lang="id"><head>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>QR Etalase UMKM — Halal CyberQuest</title>
+<link rel="stylesheet" href="styles.css"/></head><body>
+  <div class="navbar"><div class="container nav-inner">
+  <a class="brand" href="index.html"><div class="logo">HQ</div><span>Halal CyberQuest</span></a>
+</div></div>
+  
+</div></div>
+<header class="hero"><div class="container grid grid-2">
+  <div>
+    <span class="badge">QR • Warung/UMKM</span>
+    <h1 class="h-title kufi" id="shopName">Warung Roti Kampoeng</h1>
+    <p class="h-sub">Etalase transparansi kualitas: harga, bahan, dan proses pembuatan.</p>
+    <div class="meta">
+      <span class="chip badge-h" id="transparency">🟡 Transparent Process</span>
+      <span class="chip">Kontak: <span id="contact">Bu Sari (0812‑xxxx‑xxxx)</span></span>
+    </div>
+  </div>
+  <div class="card pattern"><div class="orb a"></div><div class="orb b"></div></div>
+</div></header>
+<main class="container"><div class="grid grid-2">
+  <div class="card">
+    <h3 class="kufi" id="productTitle">Roti Coklat Kampoeng</h3>
+    <div class="price">Rp <span id="price">8.000</span></div>
+    <p class="muted small">Harga tertera sudah termasuk pajak; tidak ada biaya tersembunyi.</p>
+    <div class="sep"></div>
+    <h4>Bahan</h4><ul id="ingredients" class="small"></ul>
+    <div class="sep"></div>
+    <h4>Proses</h4><ol id="process" class="small"></ol>
+  </div>
+  <div class="card">
+    <h3 class="kufi">Kuis Produk (opsional)</h3>
+    <div class="quiz"><div class="q">Bahan utama roti di warung ini adalah?</div>
+      <button class="opt" data-i="1">Bambu lokal</button>
+      <button class="opt" data-i="0">Tepung terigu</button>
+      <button class="opt" data-i="1">Plastik daur ulang</button>
+      <div class="feedback" id="f"></div>
+    </div>
+    <div class="sep"></div>
+    <h3 class="kufi">Bonus</h3>
+    <p class="muted small">Lulus kuis untuk mendapat voucher diskon 5% (simulasi).</p>
+    <a class="btn btn-primary hidden" id="voucher" href="#">Klaim Voucher</a>
+  </div>
+</div></main>
+<div class="footer"><div class="container">© Halal CyberQuest — QR Etalase</div></div>
+<script src="script.js"></script>
+<script>
+(function(){
+  const { q, $, $$ } = HCQ;
+  const id = (q('id')||'roti').toLowerCase();
+  const DATA = {
+    roti:{ shop:"Warung Roti Kampoeng", product:"Roti Coklat Kampoeng", price:"8.000",
+      transparency:"🟡 Transparent Process", contact:"Bu Sari (0812‑xxxx‑xxxx)",
+      ingredients:["Tepung terigu (Segitiga Biru)","Coklat bubuk (Bensdorp)","Gula pasir (Gulaku)","Telur ayam (lokal kampung)","Mentega (Blue Band)","Ragi instan (Fermipan)","Tidak menggunakan bahan berbahaya/pengawet sintetis"],
+      process:["Dibuat fresh setiap pagi pukul 05.00","Peralatan dibersihkan & disanitasi sebelum produksi","Oven terpisah dari produk non‑halal","Dikemas dengan kemasan food‑grade"]
+    }
+  };
+  const d = DATA[id] || DATA.roti;
+  $("#shopName").textContent = d.shop; $("#productTitle").textContent = d.product;
+  $("#price").textContent = d.price; $("#transparency").textContent = d.transparency; $("#contact").textContent = d.contact;
+  const ing=$("#ingredients"); d.ingredients.forEach(x=>{ const li=document.createElement('li'); li.textContent="✅ "+x; ing.appendChild(li); });
+  const proc=$("#process"); d.process.forEach(x=>{ const li=document.createElement('li'); li.textContent="• "+x; proc.appendChild(li); });
+  const fb=$("#f"); $$(".opt").forEach(btn=>btn.addEventListener('click',()=>{
+    const ok = btn.dataset.i==="0"; fb.textContent = ok? "Benar! Voucher diskon dapat diklaim." : "Belum tepat.";
+    fb.style.color = ok? "var(--accent)" : "crimson"; if(ok) $("#voucher").classList.remove('hidden'); $$(".opt").forEach(b=>b.disabled=true);
+  }));
+})();
+</script>
+</body></html>

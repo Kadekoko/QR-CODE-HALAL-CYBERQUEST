@@ -1,0 +1,39 @@
+
+<!doctype html><html lang="id"><head>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Halal CyberQuest — QR Prototype</title>
+<link rel="stylesheet" href="styles.css"/>
+</head><body>
+<div class="navbar"><div class="container nav-inner">
+  <a class="brand" href="index.html"><div class="logo">HQ</div><span>Halal CyberQuest</span></a>
+  <nav class="nav-links">
+    <a href="qr-quiz.html?v=taawun">QR Kuis</a>
+    <a href="qr-etalase.html?id=roti">QR Etalase</a>
+    <a href="qr-pay.html">QR Pembayaran</a>
+  </nav>
+</div></div>
+<header class="hero"><div class="container grid grid-2">
+  <div>
+    <span class="badge">Kampoeng Cyber • Halal & Gamifikasi</span>
+    <h1 class="h-title kufi">Prototipe QR — cepat disunting, langsung dipakai.</h1>
+    <p class="h-sub">Tiga template siap pakai: <b>QR Kuis Nilai</b>, <b>QR Etalase UMKM</b>, dan <b>QR Pembayaran</b>. Cukup buka <code>index.html</code>.</p>
+    <div class="row">
+      <a class="btn btn-primary" href="qr-quiz.html?v=taawun">Coba QR Kuis</a>
+      <a class="btn btn-ghost" href="qr-etalase.html?id=roti">Lihat Etalase</a>
+      <a class="btn btn-ghost" href="qr-pay.html">Simulasi Bayar</a>
+    </div>
+  </div>
+  <div class="card pattern"><div class="orb a"></div><div class="orb b"></div></div>
+</div></header>
+<main class="container"><div class="grid">
+  <div class="card">
+    <h3 class="kufi">Cara pakai & sunting</h3><div class="sep"></div>
+    <ul class="small muted">
+      <li><b>QR Kuis:</b> buka <code>qr-quiz.html?v=taawun</code>, ubah pertanyaan di bagian <code>const QUIZ</code> (dalam file HTML).</li>
+      <li><b>QR Etalase:</b> buka <code>qr-etalase.html?id=roti</code>, ubah data produk di variabel <code>DATA</code>.</li>
+      <li><b>QR Pembayaran:</b> tombol "Bayar via QRIS (Simulasi)" menulis session 10 jam ke <code>localStorage</code>.</li>
+    </ul>
+  </div>
+</div></main>
+<div class="footer"><div class="container">© Halal CyberQuest — Prototype</div></div>
+</body></html>

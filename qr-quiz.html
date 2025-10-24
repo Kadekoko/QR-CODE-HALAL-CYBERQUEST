@@ -1,0 +1,79 @@
+
+<!doctype html><html lang="id"><head>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>QR Kuis Nilai — Halal CyberQuest</title>
+<link rel="stylesheet" href="styles.css"/></head><body>
+<div class="navbar"><div class="container nav-inner">
+  <a class="brand" href="index.html"><div class="logo">HQ</div><span>Halal CyberQuest</span></a>
+</div></div>
+  
+</div></div>
+<header class="hero"><div class="container grid grid-2">
+  <div>
+    <span class="badge">QR • Mural Edukatif</span>
+    <h1 class="h-title kufi" id="title">Mutual Cooperation (Ta'awun)</h1>
+    <p class="h-sub" id="story">Cerita singkat nilai Ta'awun di Kampoeng Cyber.</p>
+    <div class="row small muted"><span>Durasi kuis ± 1–2 menit • Benar ≥2/3 untuk membuka frame</span></div>
+  </div>
+  <div class="card pattern"><div class="orb a"></div><div class="orb b"></div></div>
+</div></header>
+<main class="container"><div class="grid grid-2">
+  <div class="card">
+    <h3 class="kufi">Quiz</h3>
+    <div class="quiz" id="quizBox"></div>
+    <div class="sep"></div><div class="feedback" id="quizResult"></div>
+  </div>
+  <div class="card">
+    <h3 class="kufi">Hadiah • Digital Frame</h3>
+    <p class="muted small">Lulus kuis untuk membuka frame tematik sesuai nilai.</p>
+    <div class="center" id="frameBox">
+      <div class="pattern" style="min-height:160px;margin-top:8px"></div>
+      <div class="row center" style="justify-content:center;margin-top:10px">
+        <a class="btn btn-primary hidden" id="claimBtn" href="#">Unduh Frame</a>
+        <span class="muted small" id="hint">Belum terbuka.</span>
+      </div>
+    </div>
+  </div>
+</div></main>
+<div class="footer"><div class="container">© Halal CyberQuest — QR Kuis</div></div>
+<script src="script.js"></script>
+<script>
+(function(){
+  const { q, $, $$ } = HCQ;
+  const v = (q('v')||'taawun').toLowerCase();
+  const QUIZ = {
+    taawun:{ title:"Mutual Cooperation (Ta'awun)", story:"Gotong royong warga membangun infrastruktur & ruang belajar digital.",
+      q:[ {t:"Apa makna ta'awun di Kampoeng Cyber?",o:["Saling membantu infrastruktur","Kompetisi antar warga","Individualisme"],a:0},
+          {t:"Bagaimana menerapkannya?",o:["Ikut kegiatan bersama","Fokus keuntungan pribadi","Menghindari tanggung jawab"],a:0},
+          {t:"Mengapa penting?",o:["Menciptakan sinergi & kekuatan kolektif","Hanya untuk gengsi","Agar terlihat sibuk"],a:0} ]},
+    ihsan:{ title:"Kindness & Excellence (Ihsan)", story:"Melakukan kebaikan terbaik dalam layanan & karya warga.",
+      q:[ {t:"Contoh ihsan saat kunjungan?",o:["Menyapa dan membantu pengunjung","Abaikan tamu","Menaikkan harga diam-diam"],a:0},
+          {t:"Ihsan dalam produk UMKM?",o:["Proses bersih & jujur","Asal cepat","Sembunyikan kekurangan"],a:0},
+          {t:"Dampak ihsan?",o:["Kepercayaan & keberkahan","Tidak ada pengaruh","Hanya capek"],a:0} ]}
+  };
+  const data = QUIZ[v] || QUIZ.taawun;
+  $("#title").textContent = data.title;
+  $("#story").textContent = data.story;
+  const box = $("#quizBox"); let correct=0;
+  data.q.forEach((item, idx)=>{
+    const wrap=document.createElement('div'); wrap.className='q-wrap';
+    wrap.innerHTML = `<div class="q">${idx+1}. ${item.t}</div>` + item.o.map((opt,i)=>`<button class="opt" data-i="${i}">${String.fromCharCode(65+i)}) ${opt}</button>`).join('');
+    box.appendChild(wrap);
+    wrap.querySelectorAll('.opt').forEach(btn=>btn.addEventListener('click',()=>{
+      const i=+btn.dataset.i; if(i===item.a){correct++; btn.style.borderColor='var(--accent)';} else {btn.style.borderColor='crimson';}
+      wrap.querySelectorAll('.opt').forEach(b=>b.disabled=true);
+    }));
+  });
+  const result=$("#quizResult"), claim=$("#claimBtn"), hint=$("#hint");
+  const passNeeded = Math.ceil(data.q.length*2/3);
+  box.addEventListener('click',()=>{
+    const done = box.querySelectorAll('.opt[disabled]').length === data.q.length*3;
+    if(done){
+      result.textContent = `Skor: ${correct}/${data.q.length} — ${correct>=passNeeded?'Lulus! Frame terbuka.':'Belum lulus, coba lagi.'}`;
+      result.style.color = correct>=passNeeded ? 'var(--accent)' : 'crimson';
+      if(correct>=passNeeded){ claim.classList.remove('hidden'); hint.classList.add('hidden'); }
+    }
+  });
+})();
+</script>
+</body></html>

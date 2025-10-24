@@ -1,0 +1,58 @@
+
+<!doctype html><html lang="id"><head>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>QR Pembayaran — Halal CyberQuest</title>
+<link rel="stylesheet" href="styles.css"/></head><body>
+<div class="navbar"><div class="container nav-inner">
+  <a class="brand" href="index.html"><div class="logo">HQ</div><span>Halal CyberQuest</span></a>
+</div></div>
+  
+</div></div>
+<header class="hero"><div class="container grid grid-2">
+  <div>
+    <span class="badge">QR • Gerbang Pembayaran</span>
+    <h1 class="h-title kufi">Akses 10 Jam • Rp 15.000</h1>
+    <p class="h-sub">Sekali bayar via QRIS. Tiket digital terikat pada perangkat ini. Tidak ada biaya tersembunyi.</p>
+    <div class="row">
+      <a class="btn btn-primary" id="payBtn" href="#">Bayar via QRIS (Simulasi)</a>
+      <a class="btn btn-ghost" href="index.html">Kembali</a>
+    </div>
+    <p class="small muted">Simulasi: klik tombol di atas untuk membuat session 10 jam di perangkat ini. Di produksi, tautkan ke gateway (Midtrans/QRIS) lalu setel session saat notifikasi pembayaran diterima.</p>
+  </div>
+  <div class="card price-box">
+    <div class="big">Rp 15.000</div>
+    <div class="muted">Akses penuh hingga</div>
+    <div class="timer" id="until">—</div>
+    <div class="sep"></div>
+    <div class="row" style="justify-content:center">
+      <span class="chip">Device‑bound</span>
+      <span class="chip">Refund 30 menit awal</span>
+      <span class="chip">Auto‑detect saat scan</span>
+    </div>
+  </div>
+</div></header>
+<main class="container"><div class="grid">
+  <div class="card"><h3 class="kufi">Transparansi Syariah</h3>
+    <ul class="small muted">
+      <li>Harga & durasi tampil jelas sebelum transaksi.</li>
+      <li>Tidak ada biaya tambahan, paket premium, atau subscription.</li>
+      <li>Refund otomatis jika terjadi gangguan layanan ≤ 30 menit pertama.</li>
+    </ul>
+  </div>
+  <div class="card"><h3 class="kufi">Status Sesi</h3><p class="small">Sisa akses: <b id="remain">—</b></p></div>
+</div></main>
+<div class="footer"><div class="container">© Halal CyberQuest — QR Pembayaran</div></div>
+<script src="script.js"></script>
+<script>
+(function(){
+  const { setSession, remainingSec, fmt, $ } = HCQ;
+  function update(){ const rem=remainingSec(); $("#remain").textContent = rem? fmt(rem) : "Belum aktif"; }
+  update(); setInterval(update, 1000);
+  $("#payBtn").addEventListener('click',(e)=>{
+    e.preventDefault();
+    const until = new Date(setSession(10)); $("#until").textContent = until.toLocaleString('id-ID'); update();
+    alert("Pembayaran disimulasikan. Tiket 10 jam aktif di perangkat ini.");
+  });
+})();
+</script>
+</body></html>
